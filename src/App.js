@@ -4,10 +4,18 @@ import ControlPanel from './ControlPanel';
 import MapContainer from './MapContainer';
 
 class App extends Component {
+  state = {
+    favoriteCities: [
+      {name: 'Fortaleza'},
+      {name: 'Campinas'},
+      {name: 'Sozopol'}
+    ]
+  }
+
   render() {
     return (
       <div className="App">
-        <ControlPanel />
+        <ControlPanel locations={this.state.favoriteCities}/>
         <MapContainer />
       </div>
     );

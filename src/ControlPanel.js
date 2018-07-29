@@ -1,4 +1,5 @@
 import React from 'react';
+import escapeRegExp from 'escape-string-regexp'
 
 class ControlPanel extends React.Component {
   state = {
@@ -15,6 +16,14 @@ class ControlPanel extends React.Component {
   }
 
   render (){
+    let locations;
+    if (this.state.query) {
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      locations = this.props.locations.filter((location) => match.test(location.name))
+    } else {
+      locations = this.props.locations
+    }
+
     return (
     <div className="control-panel">
       <div className="filter-locations">
@@ -27,7 +36,11 @@ class ControlPanel extends React.Component {
         />
       </div>
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>Im the open menu toggle</div>
-      <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>Im the locations</div>
+      <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
+        {locations && locations.map((location, index)=>(
+          <div key={index}>{location.name}</div>
+        ))}
+      </div>
     </div>
     );
   }
