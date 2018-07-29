@@ -37,7 +37,18 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <!-- <script async defer
+  <script type="text/javascript">
+    // Create a global map variable
+    var map;
+    // Function to initialize the map within the map div
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 40.74135, lng: -73.99802},
+        zoom: 14
+      });
+    }
+  </script>
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDCr3LVMPH6XG5mopjT0DHmL8uTLQ-2OrI&callback=initMap">
-  </script> -->
+  </script>
 </html>
