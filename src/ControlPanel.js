@@ -2,7 +2,7 @@ import React from 'react';
 
 function ControlPanel(props) {
   return (
-    <div>I'm a the control panel</div>
+    <div className="control-panel">I'm a the control panel</div>
   );
 }
 

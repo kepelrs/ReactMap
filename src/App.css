@@ -1,0 +1,25 @@
+.control-panel {
+  height: 3em;
+  width: 100%;
+  background-color: #9293FF;
+}
+
+.map-container {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .App {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .control-panel {
+    width: 20%;
+    height: 100vh;
+  }
+
+  .map-container {
+    width: 80%;
+  }
+}

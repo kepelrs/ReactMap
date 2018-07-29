@@ -2,7 +2,7 @@ import React from 'react';
 
 function MapContainer(props) {
   return (
-    <div>I'm a the MapContainer</div>
+    <div className="map-container">I'm a the MapContainer</div>
   );
 }
 
