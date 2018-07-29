@@ -3,3 +3,74 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/* Control Panel styles */
+.control-panel {
+  width: 100%;
+}
+
+.control-panel * {
+  position: relative;
+  background-color: #9293FF;
+  z-index: 2;
+}
+
+.filter-locations {
+  height: 3em;
+}
+
+.toggle-locations-list {
+  height: 1em;
+}
+
+.locations-list {
+  position: fixed;
+  height: calc(100vh - 4em);
+  width: 100%;
+  transform: translateY(-120%);
+  transition: 500ms;
+  background-color: #8585e2;
+  z-index: 1;
+}
+
+.locations-list.open{
+  transform: initial;
+}
+
+/* Map styles */
+.map-container {
+  height: calc(100vh - 4em);
+  width: 100%;
+}
+
+/* For responsiveness */
+@media only screen and (min-width: 768px) {
+  /* App styles */
+  .App {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* Control Panel styles */
+  .control-panel {
+    width: 20%;
+    height: 100vh;
+  }
+
+  .toggle-locations-list{
+    display: none;
+  }
+
+  .locations-list {
+    height: calc(100vh - 3em);
+    position: relative;
+    transform: initial;
+    transition: initial;
+}
+
+  /* Map styles */
+  .map-container {
+    width: 80%;
+    height: 100vh;
+  }
+}
