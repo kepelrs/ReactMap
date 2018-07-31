@@ -47,10 +47,13 @@ class App extends Component {
 
   populateInfoWindow = (cityObject) => {
     const marker = cityObject.marker;
+    let url, title;
     let contentString = ''
 
     for (let i=0; i < cityObject.news.length; i++) {
-      contentString += '<div class="asd">' + cityObject.news[i].url + '</div>'
+      url = cityObject.news[i].url
+      title = cityObject.news[i].title
+      contentString += `<div class="news"><a href="${url}" target="_blank">${title}</a></div>`
     }
 
     mapsAPI.bindInfoWindow(marker, contentString)
