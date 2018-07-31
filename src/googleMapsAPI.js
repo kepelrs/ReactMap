@@ -44,3 +44,22 @@ export const fitMarkersOnScreen = (markersArray) => {
 
   map.fitBounds(bounds);
 }
+
+export const populateInfoWindow = (cityObject) => {
+  const google = window.google;
+  const map = window.map;
+  const marker = cityObject.marker;
+  let contentString = ''
+
+  for (let i=0; i < cityObject.news.length; i++) {
+    contentString += '<div class="asd">' + cityObject.news[i].url + '</div>'
+  }
+
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}

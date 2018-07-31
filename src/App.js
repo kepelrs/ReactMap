@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    const cityInfoObjects = [];
+    let cityInfoObjects = [];
     const promises = this.state.startingCities.map(cityName=>{
       return mapsAPI.fetchGeocoding(cityName)
       .then(cityObject=>newsAPI.fetchNews(cityObject))
@@ -24,13 +24,20 @@ class App extends Component {
     })
 
     Promise.all(promises).then(()=>{
-      this.setState({cityInfoObjects})
-      const markers = cityInfoObjects.map(city=>{
-        return mapsAPI.createMarker({
-          position: city.coordinates,
-          title: city.name
+      const markers = []
+
+      cityInfoObjects = cityInfoObjects.map(cityObj => {
+        cityObj.marker = mapsAPI.createMarker({
+          position: cityObj.coordinates,
+          title: cityObj.name
         })
+        markers.push(cityObj.marker)
+        mapsAPI.populateInfoWindow(cityObj)
+        return cityObj
       })
+
+      this.setState({cityInfoObjects})
+
       mapsAPI.fitMarkersOnScreen(markers)
     })
   }
