@@ -7,28 +7,29 @@ import * as newsAPI from './newsAPI'
 
 class App extends Component {
   state = {
-    startingCities: [
+    startingCityNames: [
       'Fortaleza',
       'Sofia',
       'Bonn',
       'London',
       'São Paulo',
     ],
-    cityInfoObjects: []
+    allCityObjects: [],
+    displayedCities:[]
   }
 
   componentDidMount(){
-    let cityInfoObjects = [];
-    const promises = this.state.startingCities.map(cityName=>{
+    let allCityObjects = [];
+    const promises = this.state.startingCityNames.map(cityName=>{
       return mapsAPI.getGeocodeInfo(cityName)
       .then(cityObject=>newsAPI.fetchNews(cityObject))
-      .then(cityObject=>cityInfoObjects.push(cityObject))
+      .then(cityObject=>allCityObjects.push(cityObject))
     })
 
     Promise.all(promises).then(()=>{
       const markers = []
 
-      cityInfoObjects = cityInfoObjects.map(cityObj => {
+      allCityObjects = allCityObjects.map(cityObj => {
         cityObj.marker = mapsAPI.createMarker({
           position: cityObj.coordinates,
           title: cityObj.name
@@ -38,7 +39,7 @@ class App extends Component {
         return cityObj
       })
 
-      this.setState({cityInfoObjects})
+      this.setState({allCityObjects})
 
       mapsAPI.fitMarkersOnScreen(markers)
     })
@@ -62,7 +63,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ControlPanel locations={this.state.cityInfoObjects}/>
+        <ControlPanel locations={this.state.allCityObjects}/>
         <MapContainer />
       </div>
     );
