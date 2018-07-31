@@ -19,7 +19,16 @@ class App extends Component {
     const promises = this.state.startingPoints.map(point=>{
       return mapsAPI.fetchGeocoding(point).then(result=>favoriteCities.push(result))
     })
-    Promise.all(promises).then(()=>this.setState({favoriteCities}))
+    Promise.all(promises).then(()=>{
+      this.setState({favoriteCities})
+      const markers = favoriteCities.map(city=>{
+        return mapsAPI.createMarker({
+          position: city.coordinates,
+          title: city.name
+        })
+      })
+      mapsAPI.fitMarkersOnScreen(markers)
+    })
   }
 
   render() {
