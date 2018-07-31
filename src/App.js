@@ -9,8 +9,10 @@ class App extends Component {
   state = {
     startingCities: [
       'Fortaleza',
-      'Campinas',
-      'Sozopol'
+      'Sofia',
+      'Bonn',
+      'London',
+      'São Paulo',
     ],
     cityInfoObjects: []
   }
