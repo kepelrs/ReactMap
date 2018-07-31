@@ -3,25 +3,29 @@ import './App.css';
 import ControlPanel from './ControlPanel';
 import MapContainer from './MapContainer';
 import * as mapsAPI from './googleMapsAPI'
+import * as newsAPI from './newsAPI'
 
 class App extends Component {
   state = {
-    startingPoints: [
+    startingCities: [
       'Fortaleza',
       'Campinas',
       'Sozopol'
     ],
-    favoriteCities: []
+    cityInfoObjects: []
   }
 
   componentDidMount(){
-    const favoriteCities = [];
-    const promises = this.state.startingPoints.map(point=>{
-      return mapsAPI.fetchGeocoding(point).then(result=>favoriteCities.push(result))
+    const cityInfoObjects = [];
+    const promises = this.state.startingCities.map(cityName=>{
+      return mapsAPI.fetchGeocoding(cityName)
+      .then(cityObject=>newsAPI.fetchNews(cityObject))
+      .then(cityObject=>cityInfoObjects.push(cityObject))
     })
+
     Promise.all(promises).then(()=>{
-      this.setState({favoriteCities})
-      const markers = favoriteCities.map(city=>{
+      this.setState({cityInfoObjects})
+      const markers = cityInfoObjects.map(city=>{
         return mapsAPI.createMarker({
           position: city.coordinates,
           title: city.name
@@ -34,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ControlPanel locations={this.state.favoriteCities}/>
+        <ControlPanel locations={this.state.cityInfoObjects}/>
         <MapContainer />
       </div>
     );
