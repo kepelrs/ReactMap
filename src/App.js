@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ControlPanel from './ControlPanel';
+import escapeRegExp from 'escape-string-regexp'
 import MapContainer from './MapContainer';
 import * as mapsAPI from './googleMapsAPI'
 import * as newsAPI from './newsAPI'
@@ -15,7 +16,7 @@ class App extends Component {
       'São Paulo',
     ],
     allCityObjects: [],
-    displayedCities:[]
+    nowShowing:[]
   }
 
   componentDidMount(){
@@ -39,12 +40,25 @@ class App extends Component {
         return cityObj
       })
 
-      this.setState({allCityObjects})
+      this.setState({
+        allCityObjects : allCityObjects,
+        nowShowing: allCityObjects
+      })
 
       mapsAPI.fitMarkersOnScreen(markers)
     })
   }
 
+  filterCities = (filterString) => {
+    let nowShowing;
+    if (filterString) {
+      const match = new RegExp(escapeRegExp(filterString), 'i')
+      nowShowing = this.state.allCityObjects.filter((cityObj) => match.test(cityObj.name))
+    } else {
+      nowShowing = this.state.allCityObjects
+    }
+    this.setState({nowShowing})
+  }
 
   populateInfoWindow = (cityObject) => {
     const marker = cityObject.marker;
@@ -63,8 +77,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ControlPanel locations={this.state.allCityObjects}/>
-        <MapContainer />
+        <ControlPanel cities={this.state.nowShowing} filterCities={this.filterCities}/>
+        <MapContainer markers={this.state.nowShowing} />
       </div>
     );
   }

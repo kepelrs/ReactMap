@@ -1,9 +1,7 @@
 import React from 'react';
-import escapeRegExp from 'escape-string-regexp'
 
 class ControlPanel extends React.Component {
   state = {
-    query: '',
     mobileDisplayingList: false
   }
 
@@ -12,17 +10,11 @@ class ControlPanel extends React.Component {
   }
 
   updateQuery = (query) => {
-    this.setState({query})
+    this.props.filterCities(query)
   }
 
   render (){
-    let locations;
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      locations = this.props.locations.filter((location) => match.test(location.name))
-    } else {
-      locations = this.props.locations
-    }
+    let cities = this.props.cities;
 
     return (
     <div className="control-panel">
@@ -37,8 +29,8 @@ class ControlPanel extends React.Component {
       </div>
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>Im the open menu toggle</div>
       <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
-        {locations && locations.map((location, index)=>(
-          <div key={index}>{location.name}</div>
+        {cities && cities.map((city, index)=>(
+          <div key={index}>{city.name}</div>
         ))}
       </div>
     </div>
