@@ -28,24 +28,10 @@ class App extends Component {
     })
 
     Promise.all(promises).then(()=>{
-      const markers = []
-
-      allCityObjects = allCityObjects.map(cityObj => {
-        cityObj.marker = mapsAPI.createMarker({
-          position: cityObj.coordinates,
-          title: cityObj.name
-        })
-        markers.push(cityObj.marker)
-        this.populateInfoWindow(cityObj)
-        return cityObj
-      })
-
       this.setState({
         allCityObjects : allCityObjects,
         nowShowing: allCityObjects
       })
-
-      mapsAPI.fitMarkersOnScreen(markers)
     })
   }
 
@@ -60,25 +46,11 @@ class App extends Component {
     this.setState({nowShowing})
   }
 
-  populateInfoWindow = (cityObject) => {
-    const marker = cityObject.marker;
-    let url, title;
-    let contentString = ''
-
-    for (let i=0; i < cityObject.news.length; i++) {
-      url = cityObject.news[i].url
-      title = cityObject.news[i].title
-      contentString += `<div class="news"><a href="${url}" target="_blank">${title}</a></div>`
-    }
-
-    mapsAPI.bindInfoWindow(marker, contentString)
-  }
-
   render() {
     return (
       <div className="App">
         <ControlPanel cities={this.state.nowShowing} filterCities={this.filterCities}/>
-        <MapContainer markers={this.state.nowShowing} />
+        <MapContainer cityObjects={this.state.nowShowing} />
       </div>
     );
   }
