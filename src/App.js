@@ -20,7 +20,7 @@ class App extends Component {
   componentDidMount(){
     let cityInfoObjects = [];
     const promises = this.state.startingCities.map(cityName=>{
-      return mapsAPI.fetchGeocoding(cityName)
+      return mapsAPI.getGeocodeInfo(cityName)
       .then(cityObject=>newsAPI.fetchNews(cityObject))
       .then(cityObject=>cityInfoObjects.push(cityObject))
     })
@@ -34,7 +34,7 @@ class App extends Component {
           title: cityObj.name
         })
         markers.push(cityObj.marker)
-        mapsAPI.populateInfoWindow(cityObj)
+        this.populateInfoWindow(cityObj)
         return cityObj
       })
 
@@ -42,6 +42,18 @@ class App extends Component {
 
       mapsAPI.fitMarkersOnScreen(markers)
     })
+  }
+
+
+  populateInfoWindow = (cityObject) => {
+    const marker = cityObject.marker;
+    let contentString = ''
+
+    for (let i=0; i < cityObject.news.length; i++) {
+      contentString += '<div class="asd">' + cityObject.news[i].url + '</div>'
+    }
+
+    mapsAPI.bindInfoWindow(marker, contentString)
   }
 
   render() {

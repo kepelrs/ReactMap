@@ -1,29 +1,40 @@
-export const fetchGeocoding = (queryString) => {
-  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryString}&key=AIzaSyDCr3LVMPH6XG5mopjT0DHmL8uTLQ-2OrI`)
+const APIKey = 'AIzaSyDCr3LVMPH6XG5mopjT0DHmL8uTLQ-2OrI'
+let google, map, infoWindow;
+setGlobals()
+
+function setGlobals() {
+  if (google && map) {
+    infoWindow = new google.maps.InfoWindow();
+    return;
+  }
+  google = window.google;
+  map = window.map;
+  setTimeout(setGlobals, 200);
+}
+
+export const getGeocodeInfo = (queryString) => {
+  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryString}&key=${APIKey}`)
   .then(response=>response.json())
   .then(MapsAPIResponse=>{
-    const cityObject = {}
+    const locationInfo = {}
 
     if(MapsAPIResponse && MapsAPIResponse.status === "OK") {
       const bestMatch = MapsAPIResponse.results[0]
       const cityName = bestMatch.address_components[0].long_name
-      const countryName = bestMatch.address_components[1].long_name
+      const regionName = bestMatch.address_components[2].long_name
       const location = bestMatch.geometry.location
 
-      cityObject.name = queryString
-      cityObject.fullName = cityName + ", " + countryName
-      cityObject.coordinates = location
+      locationInfo.name = queryString
+      locationInfo.cityAndRegion = cityName + ", " + regionName
+      locationInfo.coordinates = location
     }
 
-    return cityObject
+    return locationInfo
   })
   .catch(()=>({}))
 }
 
 export const createMarker = (configOptions) => {
-  const google = window.google;
-  const map = window.map;
-
   if (configOptions){
     configOptions.map = map;
     configOptions.animation = google.maps.Animation.BOUNCE
@@ -33,33 +44,18 @@ export const createMarker = (configOptions) => {
 }
 
 export const fitMarkersOnScreen = (markersArray) => {
-  const google = window.google;
-  const map = window.map;
-
-  var markers = markersArray;
-  var bounds = new google.maps.LatLngBounds();
-  for (var i = 0; i < markers.length; i++) {
+  const markers = markersArray;
+  const bounds = new google.maps.LatLngBounds();
+  for (let i = 0; i < markers.length; i++) {
     bounds.extend(markers[i].getPosition());
   }
 
   map.fitBounds(bounds);
 }
 
-export const populateInfoWindow = (cityObject) => {
-  const google = window.google;
-  const map = window.map;
-  const marker = cityObject.marker;
-  let contentString = ''
-
-  for (let i=0; i < cityObject.news.length; i++) {
-    contentString += '<div class="asd">' + cityObject.news[i].url + '</div>'
-  }
-
-  const infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-
+export const bindInfoWindow = (marker, content) => {
   marker.addListener('click', function() {
-    infowindow.open(map, marker);
+    infoWindow.setContent(content)
+    infoWindow.open(map, marker);
   });
 }
