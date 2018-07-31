@@ -1,4 +1,5 @@
 import React from 'react';
+import * as mapsAPI from './googleMapsAPI'
 
 class ControlPanel extends React.Component {
   state = {
@@ -7,6 +8,11 @@ class ControlPanel extends React.Component {
 
   toggleDisplayList = () => {
     this.setState(state=>({mobileDisplayingList: !state.mobileDisplayingList}))
+  }
+
+  openInfoWindow = (city) => {
+    const marker = city.marker
+    mapsAPI.triggerMarkerEvent(marker, 'click');
   }
 
   updateQuery = (query) => {
@@ -30,7 +36,7 @@ class ControlPanel extends React.Component {
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>Im the open menu toggle</div>
       <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
-          <div key={index}>{city.name}</div>
+          <div key={index} onClick={()=>this.openInfoWindow(city)}>{city.name}</div>
         ))}
       </div>
     </div>

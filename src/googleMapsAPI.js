@@ -59,3 +59,7 @@ export const bindInfoWindow = (marker, content) => {
     infoWindow.open(map, marker);
   });
 }
+
+export const triggerMarkerEvent = (marker, event) => {
+  return new google.maps.event.trigger( marker, event );
+}
