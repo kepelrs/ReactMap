@@ -35,7 +35,9 @@ class ControlPanel extends React.Component {
           onChange={(event) => this.updateQuery(event.target.value)}
         />
       </div>
-      <div className="toggle-locations-list" onClick={this.toggleDisplayList}>Im the open menu toggle</div>
+      <div className="toggle-locations-list" onClick={this.toggleDisplayList}>
+        <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
+      </div>
       <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
           <div key={index} onClick={()=>this.openInfoWindow(city)}>{city.name}</div>

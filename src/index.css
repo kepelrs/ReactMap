@@ -9,7 +9,7 @@ body {
   width: 100%;
 }
 
-.control-panel * {
+.control-panel>* {
   position: relative;
   background-color: #9293FF;
   z-index: 2;
@@ -31,7 +31,17 @@ body {
 }
 
 .toggle-locations-list {
-  height: 1em;
+  height: 0;
+  text-align: center;
+}
+
+.menu-toggler {
+  width: 20vw;
+  background-color: #ffffff;
+  padding-bottom: 0.25em;
+  border-radius: 0 0 10px 10px;
+  border: 2px solid #aaa;
+  border-top-color: transparent;
 }
 
 .locations-list {
@@ -50,7 +60,7 @@ body {
 
 /* Map styles */
 .map-container {
-  height: calc(100vh - 4em);
+  height: calc(100vh - 3em);
   width: 100%;
 }
 
