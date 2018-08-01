@@ -43,12 +43,15 @@ class MapContainer extends React.Component {
     const targetMarker = cityObject.marker;
     const markersToBeReset = allMarkers
     const cityNews = cityObject.news;
+    const cityName = cityObject.name;
     let contentString = '';
 
     // create infoWindow HTML content
+    contentString += `<div class="news-head"><h2>Latest about ${cityName}</h2></div>`
     for (const news of cityNews) {
       contentString += `<div class="news"><a href="${news.url}" target="_blank">${news.title}</a></div>`
     }
+    contentString += `<div class="news-footer">Source: <a href="https://newsapi.org" target="_blank">NewsAPI</a></div>`
 
     // bind display infoWindow to marker clicks
     mapsAPI.bindInfoWindow(targetMarker, contentString, markersToBeReset)

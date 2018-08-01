@@ -61,6 +61,17 @@ body {
   max-width: 70vw;
 }
 
+.news-footer {
+  width: 100%;
+  text-align: center;
+}
+
+.news-head {
+  width: 100%;
+  text-align: center;
+  color: #444;
+}
+
 /* For responsiveness */
 @media only screen and (min-width: 768px) {
   /* App styles */
