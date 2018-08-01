@@ -50,12 +50,19 @@ body {
   width: 100%;
   transform: translateY(-120%);
   transition: 500ms;
-  background-color: #8585e2;
+  background-color: transparent;
   z-index: 1;
 }
 
 .locations-list.open{
   transform: initial;
+}
+
+.location-item {
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 
 /* Map styles */
