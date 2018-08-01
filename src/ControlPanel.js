@@ -13,6 +13,8 @@ class ControlPanel extends React.Component {
   openInfoWindow = (city) => {
     const marker = city.marker
     mapsAPI.triggerMarkerEvent(marker, 'click');
+    // close menu (for mobile only)
+    this.setState({mobileDisplayingList: false})
   }
 
   updateQuery = (query) => {
