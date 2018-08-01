@@ -65,6 +65,11 @@ body {
   border: 1px solid #ddd;
 }
 
+.location-address {
+  font-size: 0.75em;
+  color: #999;
+}
+
 /* Map styles */
 .map-container {
   height: calc(100vh - 3em);

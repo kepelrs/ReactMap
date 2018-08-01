@@ -26,6 +26,7 @@ export const getGeocodeInfo = (queryString) => {
 
       locationInfo.name = queryString
       locationInfo.cityAndRegion = cityName + ", " + regionName
+      locationInfo.fullAddress = bestMatch.formatted_address
       locationInfo.coordinates = location
     }
 

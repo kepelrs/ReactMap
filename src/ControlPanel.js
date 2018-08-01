@@ -40,7 +40,10 @@ class ControlPanel extends React.Component {
       </div>
       <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
-          <div key={index} onClick={()=>this.openInfoWindow(city)} className="location-item">{city.name}</div>
+          <div key={index} onClick={()=>this.openInfoWindow(city)} className="location-item">
+          {city.name}
+          <div className="location-address">{city.fullAddress}</div>
+          </div>
         ))}
       </div>
     </div>

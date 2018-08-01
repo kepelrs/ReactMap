@@ -41,7 +41,7 @@ class App extends Component {
     let nowShowing;
     if (filterString) {
       const match = new RegExp(escapeRegExp(filterString), 'i')
-      nowShowing = this.state.allCityObjects.filter((cityObj) => match.test(cityObj.name))
+      nowShowing = this.state.allCityObjects.filter((cityObj) => match.test(cityObj.fullAddress))
     } else {
       nowShowing = this.state.allCityObjects
     }
