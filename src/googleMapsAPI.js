@@ -58,7 +58,7 @@ export const bindInfoWindow = (targetMarker, content, allMarkers=[]) => {
   targetMarker.addListener('click', function() {
     // stop all marker animations
     for(const marker of allMarkers){
-      marker && marker.setAnimation(null)
+      marker !== targetMarker && marker.setAnimation(null)
     }
 
     // animate only the target marker
