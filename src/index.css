@@ -58,7 +58,7 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 50ch;
+  max-width: 70vw;
 }
 
 /* For responsiveness */
@@ -90,5 +90,9 @@ body {
   .map-container {
     width: 80%;
     height: 100vh;
+  }
+
+  .news {
+    max-width: 50ch;
   }
 }
