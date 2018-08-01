@@ -32,15 +32,16 @@ class MapContainer extends React.Component {
       markers.push(cityObj.marker)
 
       // populate info window with links
-      this.populateInfoWindow(cityObj)
+      this.setupInfoWindow(cityObj, markers)
     }
 
     // resize map to fit all markers
     mapsAPI.fitMarkersOnScreen(markers)
   }
 
-  populateInfoWindow = (cityObject) => {
-    const windowPosition = cityObject.marker;
+  setupInfoWindow = (cityObject, allMarkers) => {
+    const targetMarker = cityObject.marker;
+    const markersToBeReset = allMarkers
     const cityNews = cityObject.news;
     let contentString = '';
 
@@ -49,8 +50,8 @@ class MapContainer extends React.Component {
       contentString += `<div class="news"><a href="${news.url}" target="_blank">${news.title}</a></div>`
     }
 
-    // display infoWindow on clicks
-    mapsAPI.bindInfoWindow(windowPosition, contentString)
+    // bind display infoWindow to marker clicks
+    mapsAPI.bindInfoWindow(targetMarker, contentString, markersToBeReset)
   }
 
   render() {

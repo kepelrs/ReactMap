@@ -37,7 +37,7 @@ export const getGeocodeInfo = (queryString) => {
 export const createMarker = (configOptions) => {
   if (configOptions){
     configOptions.map = map;
-    configOptions.animation = google.maps.Animation.BOUNCE
+    configOptions.animation = google.maps.Animation.DROP
   }
 
   return new google.maps.Marker(configOptions || {});
@@ -53,13 +53,23 @@ export const fitMarkersOnScreen = (markersArray) => {
   map.fitBounds(bounds);
 }
 
-export const bindInfoWindow = (marker, content) => {
-  marker.addListener('click', function() {
+export const bindInfoWindow = (targetMarker, content, allMarkers=[]) => {
+  // add event listener to targetMarker
+  targetMarker.addListener('click', function() {
+    // stop all marker animations
+    for(const marker of allMarkers){
+      marker && marker.setAnimation(null)
+    }
+
+    // animate only the target marker
+    targetMarker.setAnimation(google.maps.Animation.BOUNCE)
+
+    // open marker's info window
     infoWindow.setContent(content)
-    infoWindow.open(map, marker);
+    infoWindow.open(map, targetMarker);
   });
 }
 
-export const triggerMarkerEvent = (marker, event) => {
-  return new google.maps.event.trigger( marker, event );
+export const triggerMarkerEvent = (targetMarker, event) => {
+  new google.maps.event.trigger( targetMarker, event );
 }
