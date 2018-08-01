@@ -12,8 +12,10 @@ class App extends Component {
       'Fortaleza',
       'Sofia',
       'Bonn',
+      'Essen',
       'London',
       'São Paulo',
+      'Sozopol'
     ],
     allCityObjects: [],
     nowShowing:[]
