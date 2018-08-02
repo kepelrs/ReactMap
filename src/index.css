@@ -69,9 +69,20 @@ h1 {
   transform: initial;
 }
 
+.reset-button-styles {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 .location-item {
+  width: 100%;
   padding: 10px 15px;
   margin-bottom: -1px;
+  text-align: left;
   background-color: #fff;
   border: 1px solid #ddd;
 }

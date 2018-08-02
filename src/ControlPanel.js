@@ -29,6 +29,8 @@ class ControlPanel extends React.Component {
       <h1>MyCities</h1>
       <div className="filter-locations">
         <input
+          aria-label="Filter city list"
+          role="search"
           className='search-contacts'
           type='text'
           placeholder='&#xF002; Search'
@@ -37,16 +39,18 @@ class ControlPanel extends React.Component {
         />
       </div>
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>
-        <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
+        <button className="reset-button-styles">
+          <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
+        </button>
       </div>
-      <ul className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
+      <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
-          <li key={index} onClick={()=>this.openInfoWindow(city)} className="location-item">
+          <button key={index} onClick={()=>this.openInfoWindow(city)} className="location-item reset-button-styles">
           {city.name}
           <div className="location-address">{city.fullAddress}</div>
-          </li>
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
     );
   }

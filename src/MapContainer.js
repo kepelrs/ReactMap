@@ -59,7 +59,14 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <div id="map" className="map-container">Map Container</div>
+      <div
+      id="map"
+      className="map-container"
+      role="application"
+      aria-label="Map displaying city locations"
+      >
+        Map Container
+      </div>
     );
   }
 }
