@@ -29,8 +29,9 @@ class App extends Component {
     let allCityObjects = [];
     const promises = this.state.startingCityNames.map(cityName=>{
       return mapsAPI.getGeocodeInfo(cityName)
-      .then(cityObject=>newsAPI.fetchNews(cityObject))
-      .then(cityObject=>allCityObjects.push(cityObject))
+        .then(cityObject=>newsAPI.fetchNews(cityObject))
+        .then(cityObject=>allCityObjects.push(cityObject))
+        .catch(()=>allCityObjects.push({name: cityName, loadFailed: true}))
     })
 
     Promise.all(promises).then(()=>{
@@ -56,7 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         <ControlPanel cities={this.state.nowShowing} filterCities={this.filterCities}/>
-        <MapContainer cityObjects={this.state.nowShowing} />
+        <MapContainer cityObjects={this.state.nowShowing.filter(cityObj=>!cityObj.loadFailed)} />
       </div>
     );
   }

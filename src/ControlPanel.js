@@ -1,5 +1,6 @@
 import React from 'react';
 import * as mapsAPI from './googleMapsAPI'
+import LocationItem from './LocationItem';
 
 class ControlPanel extends React.Component {
   state = {
@@ -38,19 +39,21 @@ class ControlPanel extends React.Component {
           onChange={(event) => this.updateQuery(event.target.value)}
         />
       </div>
+
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>
         <button className="reset-button-styles">
           <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
         </button>
       </div>
-      <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
-        {cities && cities.map((city, index)=>(
-          <button key={index} onClick={()=>this.openInfoWindow(city)} className="location-item reset-button-styles light-bottom-border">
-          {city.name}
-          <div className="location-address">{city.fullAddress}</div>
-          </button>
+
+      <ul className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
+        {cities && cities.map((targetCity, index)=>(
+          <li key={index}>
+            <LocationItem city={targetCity} displayInfo={this.openInfoWindow}/>
+          </li>
         ))}
-      </div>
+      </ul>
+
     </div>
     );
   }

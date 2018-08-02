@@ -20,6 +20,10 @@ h1 {
   border-style: solid !important;
 }
 
+.warning {
+  color: #ff0000bd !important;
+}
+
 /* Control Panel styles */
 .control-panel {
   width: 100%;
