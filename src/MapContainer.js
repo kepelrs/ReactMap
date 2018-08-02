@@ -2,9 +2,18 @@ import React from 'react';
 import * as mapsAPI from './googleMapsAPI'
 
 class MapContainer extends React.Component {
+  state = {mapLoadFailed: false}
+
   // Init markers after updating
   componentDidUpdate() {
-    this.initMarkers()
+    if(!this.state.mapLoadFailed){
+      try{
+        this.initMarkers()
+      }
+      catch(e) {
+        this.setState({mapLoadFailed: true})
+      }
+    }
   }
 
   // Remove all markers before updating
@@ -66,7 +75,12 @@ class MapContainer extends React.Component {
       aria-label="Map displaying city locations"
       tabIndex="0"
       >
-        Map Container
+        {this.state.mapLoadFailed && (
+          <div className="map-fail warning">
+            <i className="fa fa-exclamation-circle" aria-hidden="true"></i>
+            Map failed to load. Please, try refreshing your browser.
+          </div>
+        )}
       </div>
     );
   }

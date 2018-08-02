@@ -24,6 +24,17 @@ h1 {
   color: #ff0000bd !important;
 }
 
+.map-fail {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 34% 1.5em;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: x-large;
+  background-color: aliceblue;
+}
+
 /* Control Panel styles */
 .control-panel {
   width: 100%;
