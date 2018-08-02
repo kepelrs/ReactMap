@@ -1,6 +1,7 @@
 import React from 'react';
 import * as mapsAPI from './googleMapsAPI'
 import LocationItem from './LocationItem';
+import SearchBox from './SearchBox';
 
 class ControlPanel extends React.Component {
   state = {
@@ -24,16 +25,7 @@ class ControlPanel extends React.Component {
     return (
     <div className="control-panel">
       <h1>MyCities</h1>
-      <div className="filter-locations light-bottom-border">
-        <input
-          aria-label="Filter city list"
-          role="search"
-          className='search-contacts'
-          type='text'
-          placeholder='&#xF002; Search'
-          onChange={(event) => this.props.filterCities(event.target.value)}
-        />
-      </div>
+      <SearchBox filterCities={this.props.filterCities} />
 
       <div className="toggle-locations-list" onClick={this.toggleMenu}>
         <button className="reset-button-styles">
