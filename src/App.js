@@ -22,6 +22,10 @@ class App extends Component {
   }
 
   componentDidMount(){
+    this.loadInitialLocations()
+  }
+
+  loadInitialLocations() {
     let allCityObjects = [];
     const promises = this.state.startingCityNames.map(cityName=>{
       return mapsAPI.getGeocodeInfo(cityName)
