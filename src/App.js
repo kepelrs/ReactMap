@@ -22,18 +22,23 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.loadCityInfo()
+    this.loadCitiesInfo()
   }
 
-  loadCityInfo() {
+  loadCitiesInfo() {
+    // create city objects containing news and geolocation data
+    let allCities = this.state.startingCityNames;
     let allCityObjects = [];
-    const promises = this.state.startingCityNames.map(cityName=>{
+
+    // keep track of all generated promises
+    const promises = allCities.map(cityName=>{
       return mapsAPI.getGeocodeInfo(cityName)
         .then(cityObject=>newsAPI.fetchNews(cityObject))
         .then(cityObject=>allCityObjects.push(cityObject))
         .catch(()=>allCityObjects.push({name: cityName, loadFailed: true}))
     })
 
+    // update state after all cities have been loaded (all promises finished)
     Promise.all(promises).then(()=>{
       this.setState({
         allCityObjects : allCityObjects,
@@ -43,10 +48,11 @@ class App extends Component {
   }
 
   filterCities = (filterString) => {
+    // display only cities that include the filterString on its full address
     let nowShowing;
     if (filterString) {
       const match = new RegExp(escapeRegExp(filterString), 'i')
-      nowShowing = this.state.allCityObjects.filter((cityObj) => match.test(cityObj.fullAddress))
+      nowShowing = this.state.allCityObjects.filter((cityObj) => match.test(cityObj.name) || match.test(cityObj.fullAddress))
     } else {
       nowShowing = this.state.allCityObjects
     }
@@ -54,10 +60,13 @@ class App extends Component {
   }
 
   render() {
+    const filteredCities = this.state.nowShowing
+    const markers = this.state.nowShowing.filter(cityObj=>!cityObj.loadFailed)
+
     return (
       <div className="App">
-        <ControlPanel cities={this.state.nowShowing} filterCities={this.filterCities}/>
-        <MapContainer cityObjects={this.state.nowShowing.filter(cityObj=>!cityObj.loadFailed)} />
+        <ControlPanel cities={filteredCities} filterCities={this.filterCities}/>
+        <MapContainer cityObjects={markers} />
       </div>
     );
   }

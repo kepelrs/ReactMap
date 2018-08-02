@@ -4,26 +4,22 @@ import LocationItem from './LocationItem';
 
 class ControlPanel extends React.Component {
   state = {
-    mobileDisplayingList: false
+    mobileMenuOpen: false
   }
 
-  toggleDisplayList = () => {
-    this.setState(state=>({mobileDisplayingList: !state.mobileDisplayingList}))
+  toggleMenu = () => {
+    this.setState(state=>({mobileMenuOpen: !state.mobileMenuOpen}))
   }
 
   openInfoWindow = (city) => {
     const marker = city.marker
     mapsAPI.triggerMarkerEvent(marker, 'click');
     // close menu (for mobile only)
-    this.setState({mobileDisplayingList: false})
-  }
-
-  updateQuery = (query) => {
-    this.props.filterCities(query)
+    this.setState({mobileMenuOpen: false})
   }
 
   render (){
-    let cities = this.props.cities;
+    let displayedCities = this.props.cities;
 
     return (
     <div className="control-panel">
@@ -35,19 +31,18 @@ class ControlPanel extends React.Component {
           className='search-contacts'
           type='text'
           placeholder='&#xF002; Search'
-          value={this.state.query}
-          onChange={(event) => this.updateQuery(event.target.value)}
+          onChange={(event) => this.props.filterCities(event.target.value)}
         />
       </div>
 
-      <div className="toggle-locations-list" onClick={this.toggleDisplayList}>
+      <div className="toggle-locations-list" onClick={this.toggleMenu}>
         <button className="reset-button-styles">
-          <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
+          <i className={"menu-toggler fa fa-caret-" + (this.state.mobileMenuOpen ? 'up' : 'down')} aria-hidden="true"></i>
         </button>
       </div>
 
-      <ul className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
-        {cities && cities.map((targetCity, index)=>(
+      <ul className={"locations-list" + (this.state.mobileMenuOpen ? " open" : "")}>
+        {displayedCities && displayedCities.map((targetCity, index)=>(
           <li key={index}>
             <LocationItem city={targetCity} displayInfo={this.openInfoWindow}/>
           </li>
