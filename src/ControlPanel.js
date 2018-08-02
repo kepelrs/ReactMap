@@ -1,7 +1,7 @@
 import React from 'react';
 import * as mapsAPI from './googleMapsAPI'
-import LocationItem from './LocationItem';
 import SearchBox from './SearchBox';
+import CityList from './CityList';
 
 class ControlPanel extends React.Component {
   state = {
@@ -20,27 +20,22 @@ class ControlPanel extends React.Component {
   }
 
   render (){
-    let displayedCities = this.props.cities;
+    const displayedCities = this.props.cities;
+    const menuOpen = this.state.mobileMenuOpen;
+    const showInfo = this.openInfoWindow;
+    const filterFunction = this.props.filterCities;
+    const toggleMenu = this.toggleMenu;
 
     return (
     <div className="control-panel">
       <h1>MyCities</h1>
-      <SearchBox filterCities={this.props.filterCities} />
-
-      <div className="toggle-locations-list" onClick={this.toggleMenu}>
+      <SearchBox filterCities={filterFunction} />
+      <div className="toggle-locations-list" onClick={toggleMenu}>
         <button className="reset-button-styles">
-          <i className={"menu-toggler fa fa-caret-" + (this.state.mobileMenuOpen ? 'up' : 'down')} aria-hidden="true"></i>
+          <i className={"menu-toggler fa fa-caret-" + (menuOpen ? 'up' : 'down')} aria-hidden="true"></i>
         </button>
       </div>
-
-      <ul className={"locations-list" + (this.state.mobileMenuOpen ? " open" : "")}>
-        {displayedCities && displayedCities.map((targetCity, index)=>(
-          <li key={index}>
-            <LocationItem city={targetCity} displayInfo={this.openInfoWindow}/>
-          </li>
-        ))}
-      </ul>
-
+      <CityList cities={displayedCities} menuOpen={menuOpen} showInfo={showInfo} />
     </div>
     );
   }

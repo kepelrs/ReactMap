@@ -1,17 +1,21 @@
 import React from 'react';
 
-function LocationItem(props) {
+function CityItem(props) {
+  const city = props.city;
+  const showInfoWindow = props.displayInfo;
+
   return (
     <div>
-      {!props.city.loadFailed && (
-        <button onClick={()=>props.displayInfo(props.city)} className="location-item reset-button-styles light-bottom-border">
-          {props.city.name}
-          <div className="location-address">{props.city.fullAddress}</div>
+      {!city.loadFailed && (
+        <button onClick={()=>showInfoWindow(city)} className="location-item reset-button-styles light-bottom-border">
+          {city.name}
+          <div className="location-address">{city.fullAddress}</div>
         </button>
       )}
-      {props.city.loadFailed && (
+
+      {city.loadFailed && (
         <button className="location-item reset-button-styles light-bottom-border">
-          {props.city.name}
+          {city.name}
           <div className="location-address warning">
             <i className="fa fa-exclamation-circle" aria-hidden="true"></i>
             Failed to load data. Please, try refreshing the page.
@@ -22,4 +26,4 @@ function LocationItem(props) {
   )
 }
 
-export default LocationItem;
+export default CityItem;

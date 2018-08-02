@@ -4,7 +4,11 @@ import * as mapsAPI from './googleMapsAPI'
 class MapContainer extends React.Component {
   state = {mapLoadFailed: false}
 
-  // Init markers after updating
+  /*
+    On componentDidUpdate:
+    Initialize markers
+    Handle map failed to load situations gracefully
+  */
   componentDidUpdate() {
     if(!this.state.mapLoadFailed){
       try{
