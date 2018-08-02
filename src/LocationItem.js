@@ -13,8 +13,8 @@ function LocationItem(props) {
         <button className="location-item reset-button-styles light-bottom-border">
           {props.city.name}
           <div className="location-address warning">
-            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-            Failed to load data. Please refresh the page.
+            <i className="fa fa-exclamation-circle" aria-hidden="true"></i>
+            Failed to load data. Please, try refreshing the page.
           </div>
         </button>
       )}
