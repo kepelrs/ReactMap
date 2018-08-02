@@ -26,6 +26,7 @@ class ControlPanel extends React.Component {
 
     return (
     <div className="control-panel">
+      <h1>MyCities</h1>
       <div className="filter-locations">
         <input
           className='search-contacts'
