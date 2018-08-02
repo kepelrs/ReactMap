@@ -4,10 +4,14 @@ import * as mapsAPI from './googleMapsAPI'
 class MapContainer extends React.Component {
   state = {mapLoadFailed: false}
 
+  componentDidMount(){
+    // set google maps authFailure function to custom handler
+    window.gm_authFailure = this.handleMapErrors
+  }
+
   /*
     On componentDidUpdate:
-    Initialize markers
-    Handle map failed to load situations gracefully
+    Initialize markers and handle any possible errors
   */
   componentDidUpdate() {
     if(!this.state.mapLoadFailed){
@@ -15,7 +19,7 @@ class MapContainer extends React.Component {
         this.initMarkers()
       }
       catch(e) {
-        this.setState({mapLoadFailed: true})
+        this.handleMapErrors()
       }
     }
   }
@@ -24,6 +28,10 @@ class MapContainer extends React.Component {
   getSnapshotBeforeUpdate(prevProps, prevState){
     this.removeMarkers(prevProps)
     return null
+  }
+
+  handleMapErrors(){
+    this.setState({mapLoadFailed: true})
   }
 
   removeMarkers = (props) => {
