@@ -16,4 +16,7 @@ I kept the dependencies of the project to a minimum. Other than bootstrapping th
 To run this project in your system:
 
 * install all project dependencies with `npm install`
-* start the development server with `npm start`
+* create the production build with `npm run build`
+* install a static server with `npm install -g serve`
+* serve the project with `serve -s build`
+* Visit the App on `http://localhost:5000`
