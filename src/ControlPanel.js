@@ -27,7 +27,7 @@ class ControlPanel extends React.Component {
     return (
     <div className="control-panel">
       <h1>MyCities</h1>
-      <div className="filter-locations">
+      <div className="filter-locations light-bottom-border">
         <input
           aria-label="Filter city list"
           role="search"
@@ -45,7 +45,7 @@ class ControlPanel extends React.Component {
       </div>
       <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
-          <button key={index} onClick={()=>this.openInfoWindow(city)} className="location-item reset-button-styles">
+          <button key={index} onClick={()=>this.openInfoWindow(city)} className="location-item reset-button-styles light-bottom-border">
           {city.name}
           <div className="location-address">{city.fullAddress}</div>
           </button>

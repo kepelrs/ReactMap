@@ -44,6 +44,8 @@ h1 {
 }
 
 .menu-toggler {
+  position: relative;
+  top: -1px;
   width: 20vw;
   background-color: #ffffff;
   padding-bottom: 0.25em;
@@ -81,10 +83,14 @@ h1 {
 .location-item {
   width: 100%;
   padding: 10px 15px;
-  margin-bottom: -1px;
   text-align: left;
   background-color: #fff;
-  border: 1px solid #ddd;
+}
+
+.light-bottom-border {
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }
 
 .location-address {
@@ -139,7 +145,7 @@ h1 {
     position: relative;
     transform: initial;
     transition: initial;
-}
+  }
 
   /* Map styles */
   .map-container {
