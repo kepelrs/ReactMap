@@ -61,6 +61,8 @@ h1 {
   background-color: transparent;
   z-index: 1;
   overflow: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .locations-list.open{

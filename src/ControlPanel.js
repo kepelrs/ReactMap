@@ -39,14 +39,14 @@ class ControlPanel extends React.Component {
       <div className="toggle-locations-list" onClick={this.toggleDisplayList}>
         <i className={"menu-toggler fa fa-caret-" + (this.state.mobileDisplayingList ? 'up' : 'down')} aria-hidden="true"></i>
       </div>
-      <div className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
+      <ul className={"locations-list" + (this.state.mobileDisplayingList ? " open" : "")}>
         {cities && cities.map((city, index)=>(
-          <div key={index} onClick={()=>this.openInfoWindow(city)} className="location-item">
+          <li key={index} onClick={()=>this.openInfoWindow(city)} className="location-item">
           {city.name}
           <div className="location-address">{city.fullAddress}</div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
     );
   }
