@@ -13,6 +13,13 @@ h1 {
   color: lightskyblue;
 }
 
+*:focus {
+  box-sizing: border-box;
+  border-color: skyblue !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
 /* Control Panel styles */
 .control-panel {
   width: 100%;
@@ -114,6 +121,7 @@ h1 {
 .news-footer {
   width: 100%;
   text-align: center;
+  margin-bottom: 0.1em;
 }
 
 .news-head {

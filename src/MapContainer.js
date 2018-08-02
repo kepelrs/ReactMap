@@ -64,6 +64,7 @@ class MapContainer extends React.Component {
       className="map-container"
       role="application"
       aria-label="Map displaying city locations"
+      tabIndex="0"
       >
         Map Container
       </div>
