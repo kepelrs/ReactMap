@@ -13,7 +13,9 @@ I kept the dependencies of the project to a minimum. Other than bootstrapping th
 
 ## Running the Project
 
-To run this project in your system:
+This project includes a service worker implementation that is only available on the production build.
+
+To run this on production mode:
 
 * install all project dependencies with `npm install`
 * create the production build with `npm run build`
